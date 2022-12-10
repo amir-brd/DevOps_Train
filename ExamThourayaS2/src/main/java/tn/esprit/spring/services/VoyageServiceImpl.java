@@ -1,5 +1,6 @@
 package tn.esprit.spring.services;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,19 +12,23 @@ import tn.esprit.spring.repository.VoyageRepository;
 import java.util.List;
 
 @Service
+@Slf4j
 public class VoyageServiceImpl implements IVoyageService {
     @Autowired
     VoyageRepository voyageRepository;
     @Autowired
     TrainRepository trainRepository;
     @Override
-    public void ajouterVoyage(Voyage v) {
+    public Voyage ajouterVoyage(Voyage v) {
+        log.info("In method ajouterVoyage");
         voyageRepository.save(v);
+        return v;
     }
 
     @Override
-    public void modifierVoyage(Voyage v) {
-		voyageRepository.save(v);
+    public Voyage modifierVoyage(Voyage v) {
+        log.info("In method ajouterVoyage");
+		return voyageRepository.save(v);
     }
 
 
@@ -42,14 +47,16 @@ public class VoyageServiceImpl implements IVoyageService {
     }
 
     @Override
-    public Voyage recupererVoyageParId(long idVoyage) {
-        Voyage v = voyageRepository.findById(idVoyage).orElse(null);
+    public Voyage recupererVoyageParId(Long id) {
+        Voyage v = voyageRepository.findById(id).orElse(null);
         return v;
     }
 
     @Override
-    public void supprimerVoyage(Voyage v) {
-        //TODO method
+    public Voyage supprimerVoyage(Long id) {
+        log.info("In method supprimerVoyage");
+        voyageRepository.deleteById(id);
+        return voyageRepository.findById(id).orElse(null);
     }
 
 }

@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-@Entity 
+@Entity
 public class Voyageur implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -20,7 +20,7 @@ public class Voyageur implements Serializable{
 	
 	String nomVoyageur;
 
-	
+
 	public List<Voyage> getMesvoyages() {
 		return mesvoyages;
 	}
@@ -51,6 +51,9 @@ public class Voyageur implements Serializable{
 	public Voyageur() {
 		super();
 	}
-	
-	
+
+	public Voyageur(Long idVoyageur, String nomVoyageur) {
+		this.idVoyageur = idVoyageur;
+		this.nomVoyageur = nomVoyageur;
+	}
 }

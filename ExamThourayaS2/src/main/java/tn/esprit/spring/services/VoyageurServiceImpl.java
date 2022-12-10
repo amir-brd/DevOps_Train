@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import tn.esprit.spring.repository.VoyageurRepository;
 
 
 @Service
+@Slf4j
 public class VoyageurServiceImpl implements IVoyageurService{
 
 	@Autowired
@@ -26,14 +28,16 @@ public class VoyageurServiceImpl implements IVoyageurService{
 //	
 //	private static final Logger l = LogManager.getLogger(voyageurServiceImpl.class);
 //	
-	public void ajouterVoyageur(Voyageur voyageur) {
-		voyageurRepository.save(voyageur);
-		
+	public Voyageur ajouterVoyageur(Voyageur v) {
+		log.info("In method ajouterVoyageur");
+		voyageurRepository.save(v);
+		return v;
     }
 
 	@Override
-	public void modifierVoyageur(Voyageur voyageur) {
-		voyageurRepository.save(voyageur);
+	public Voyageur modifierVoyageur(Voyageur v) {
+		log.info("In method modifierVoyageur");
+		return voyageurRepository.save(v);
 	}
 
 	@Override
@@ -54,8 +58,10 @@ public class VoyageurServiceImpl implements IVoyageurService{
 	}
 
 	@Override
-	public void supprimerVoyageur(Voyageur v) {
-		voyageurRepository.delete(v);
+	public Voyageur supprimerVoyageur(Long id) {
+		log.info("In method supprimerVoyageur");
+		voyageurRepository.deleteById(id);
+		return voyageurRepository.findById(id).orElse(null);
 	}
 
 }

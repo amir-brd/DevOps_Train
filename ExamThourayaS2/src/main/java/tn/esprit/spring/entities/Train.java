@@ -23,6 +23,7 @@ public class Train implements Serializable {
         return codeTrain;
     }
 
+
     public void setCodeTrain(long codeTrain) {
         this.codeTrain = codeTrain;
     }
@@ -62,7 +63,7 @@ public class Train implements Serializable {
 
     public Train(long idTrain, etatTrain etat, int nbPlaceLibre) {
         super();
-        this.idTrain = idTrain;
+        this.codeTrain = codeTrain;
         this.etat = etat;
         this.nbPlaceLibre = nbPlaceLibre;
     }
