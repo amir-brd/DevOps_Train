@@ -29,9 +29,9 @@ pipeline {
             }
         }
 
-        stage('MVN PACKAGE'){
+        stage('MVN INSTALL'){
               steps{
-                  sh  'mvn package'
+                  sh  'mvn install'
               }
         }
         stage('Deploy Nexus'){
