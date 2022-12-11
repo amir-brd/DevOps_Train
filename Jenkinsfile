@@ -22,6 +22,12 @@ pipeline {
                 sh  'mvn clean -e'
             }
         }
+        
+        stage('MVN INSTALL'){
+              steps{
+                  sh  'mvn install'
+              }
+        }
 
         stage('MVN COMPILE'){
             steps{
@@ -29,16 +35,19 @@ pipeline {
             }
         }
 
-        stage('MVN INSTALL'){
-              steps{
-                  sh  'mvn install'
-              }
-        }
+        
         stage('Deploy Nexus'){
             steps{
                 sh  'mvn  deploy'
             }
         }
+        
+        stage('MVN SONARQUBE'){
+
+                steps{
+                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                }
+          }
         
         
         
