@@ -61,7 +61,7 @@ public class Train implements Serializable {
         super();
     }
 
-    public Train(long idTrain, etatTrain etat, int nbPlaceLibre) {
+    public Train(long codeTrain, etatTrain etat, int nbPlaceLibre) {
         super();
         this.codeTrain = codeTrain;
         this.etat = etat;

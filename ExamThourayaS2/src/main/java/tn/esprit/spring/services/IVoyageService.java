@@ -19,7 +19,6 @@ public interface IVoyageService {
 
 	 Voyage ajouterVoyage(Voyage v);
 	 Voyage modifierVoyage(Voyage v);
-	 //public void affecterTrainAVoyage(Long idTrain, String gareDepart, String  gareArrivee);
 	 void affecterTrainAVoyage(Long idTrain, Long idVoyage);
 	 List<Voyage> recupererAll();
 	 Voyage recupererVoyageParId(Long id);

@@ -15,6 +15,8 @@ import tn.esprit.spring.services.IVoyageurService;
 import tn.esprit.spring.services.ITrainService;
 import tn.esprit.spring.services.IVoyageService;
 
+import static tn.esprit.spring.config.PerformanceAspect.logger;
+
 @RestController
 public class RestControllerVoyageur {
 
@@ -50,19 +52,11 @@ public class RestControllerVoyageur {
         iVoyageurservice.ajouterVoyageur(Voyageur);
     }
 
-    //http://localhost:8083/SpringMVC/servlet/affecterTrainAVoyage/{idtr}/{idvyg}
     @PutMapping(value = "/affecterTrainAVoyage/{idtr}/{idvyg}")
     //1 1  2 2 3 3 4 4
     public void affecterTrainAVoyage(@PathVariable("idtr") Long idTrain, @PathVariable("idvyg") Long idVoyage) {
         ivoyageservice.affecterTrainAVoyage(idTrain, idVoyage);
     }
-
-//@PutMapping(value = "/affecterTrainAGare/{idtr}/{idgdpt}/{idgar}")
-//public void affecterTrainAGare(@PathVariable("idtr")Long idTrain, @PathVariable("idgdpt")Long idGareDepart,@PathVariable("idgar") Long idGareArrivee)
-//{
-//	igareservice.affecterTrainAGare(idTrain,idGareDepart,idGareArrivee);
-//
-//}
 
     ////http://localhost:8083/SpringMVC/servlet/affecterTrainAVoyageur/1/EZZAHRA/7.45
     @PutMapping(value = "/affecterTrainAVoyageur/{idc}/{nomgdpt}/{nomgarr}/{heuredept}")
@@ -73,7 +67,7 @@ public class RestControllerVoyageur {
     //////URL : http://localhost:8083/SpringMVC/servlet/TrainPlacesLibres/TUNIS
     @GetMapping(value = "/TrainPlacesLibres/{nomgdpt}")
     public int TrainPlacesLibres(@PathVariable("nomgdpt") Ville nomGareDepart) {
-        System.out.println("in controller" + nomGareDepart);
+        logger.info("in controller" + nomGareDepart);
         return itrainservice.TrainPlacesLibres(nomGareDepart);
     }
 

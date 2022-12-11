@@ -58,8 +58,6 @@ public class TrainServiceImpl implements ITrainService {
                 cpt = cpt + listvoyage.get(i).getTrain().getNbPlaceLibre();
                 occ = occ + 1;
                 System.out.println("cpt " + cpt);
-            } else {
-
             }
         }
         return cpt / occ;
@@ -77,8 +75,6 @@ public class TrainServiceImpl implements ITrainService {
                     if (lesvoyage.get(i).getGareArrivee() == lesvoyage.get(j).getGareDepart() & lesvoyage.get(j).getGareArrivee() == nomGareArrivee) {
                         lestrainsRes.add(lesvoyage.get(i).getTrain());
                         lestrainsRes.add(lesvoyage.get(j).getTrain());
-
-                    } else {
 
                     }
 
@@ -139,9 +135,6 @@ public class TrainServiceImpl implements ITrainService {
         for (int i = 0; i < lesvoyages.size(); i++) {
             if (lesvoyages.get(i).getDateArrivee().before(date)) {
                 System.out.println("les trains sont " + lesvoyages.get(i).getTrain().getCodeTrain());
-            }
-            else{
-
             }
         }
     }
