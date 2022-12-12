@@ -66,6 +66,15 @@ pipeline {
                         }
                }
          }
+        
+        stage('Deploy our image') {
+               steps {
+                        script {
+                            sh 'docker-compose up -d --build'
+                            }
+                        }
+               }
+         }
 
         
         
