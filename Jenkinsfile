@@ -1,7 +1,7 @@
 pipeline {
     agent any
-  
-    environment {
+
+     environment {
             registry = "amirbrd/devops-project"
             registryCredential = 'dockerHub'
             dockerImage = ''
@@ -16,10 +16,7 @@ pipeline {
                 url : 'https://github.com/amir-brd/DevOps_Train.git'
             }
         }
-
-      
-
-        stage('MVN CLEAN'){
+   stage('MVN CLEAN'){
             steps{
                 sh  'mvn clean'
             }
@@ -36,32 +33,15 @@ pipeline {
                   sh  'mvn package'
               }
         }
-             /* stage("nexus deploy"){
+      
+        stage('Building our image') {
                steps{
-                       sh 'mvn  deploy'
+                        script {
+                            dockerImage = docker.build registry + ":latest"
+                        }
                }
-          }*/
-
-          /*stage('MVN SONARQUBE'){
-
-                steps{
-                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                }
-          }*/
-        
-        
-        
-        
-       
-        stage('Build our image') {
-            steps {
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
-            }
         }
-
-         /*-- stage('Deploy our image') {
+         stage('Deploy our image') {
                steps {
                         script {
                             docker.withRegistry( '', registryCredential ) {
@@ -69,17 +49,23 @@ pipeline {
                             }
                         }
                }
-         }*/
-
-          /*stage('DOCKER COMPOSE') {
+         }
+          stage('DOCKER COMPOSE') {
                 steps {
                             sh 'docker-compose up -d --build'
                 }
-          }*/
-        
+          }
+  stage("nexus deploy"){
+               steps{
+                       sh 'mvn  deploy'
+               }
+          }
 
+          stage('MVN SONARQUBE'){
 
-     
+                steps{
+                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                }
+          }          
 
-        }
-}
+    }}
