@@ -36,18 +36,18 @@ pipeline {
                   sh  'mvn package'
               }
         }
-              stage("nexus deploy"){
+             /* stage("nexus deploy"){
                steps{
                        sh 'mvn  deploy'
                }
-          }
+          }*/
 
-          stage('MVN SONARQUBE'){
+          /*stage('MVN SONARQUBE'){
 
                 steps{
                           sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
                 }
-          }
+          }*/
         stage('Build our image') {
             steps {
                 script {
@@ -56,7 +56,7 @@ pipeline {
             }
         }
 
-         stage('Deploy our image') {
+         /*-- stage('Deploy our image') {
                steps {
                         script {
                             docker.withRegistry( '', registryCredential ) {
@@ -64,13 +64,13 @@ pipeline {
                             }
                         }
                }
-         }
+         }*/
 
-          stage('DOCKER COMPOSE') {
+          /*stage('DOCKER COMPOSE') {
                 steps {
                             sh 'docker-compose up -d --build'
                 }
-          }
+          }*/
         
 
 
