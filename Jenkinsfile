@@ -7,6 +7,8 @@ pipeline {
             dockerImage = ''
      }
 
+
+
     stages {
 
         stage('Checkout GIT') {
@@ -16,11 +18,16 @@ pipeline {
                 url : 'https://github.com/amir-brd/DevOps_Train.git'
             }
         }
-   stage('MVN CLEAN'){
-            steps{
-                sh  'mvn clean'
+        
+        
+        
+       stage('MVN CLEAN'){
+                steps{
+                    sh  'mvn clean'
+                }
             }
-        }
+
+
 
         stage('MVN COMPILE'){
             steps{
@@ -28,11 +35,15 @@ pipeline {
             }
         }
 
+
+
         stage('MVN PACKAGE'){
               steps{
                   sh  'mvn package'
               }
         }
+      
+      
       
         stage('Building our image') {
                steps{
@@ -41,6 +52,9 @@ pipeline {
                         }
                }
         }
+        
+        
+        
          stage('Deploy our image') {
                steps {
                         script {
@@ -50,16 +64,25 @@ pipeline {
                         }
                }
          }
+         
+         
+         
           stage('DOCKER COMPOSE') {
                 steps {
                             sh 'docker-compose up -d --build'
                 }
           }
-  stage("nexus deploy"){
-               steps{
-                       sh 'mvn  deploy'
-               }
-          }
+          
+          
+          
+          stage("nexus deploy"){
+                       steps{
+                               sh 'mvn  deploy'
+                       }
+                  }
+
+
+
 
           stage('MVN SONARQUBE'){
 
@@ -67,5 +90,7 @@ pipeline {
                           sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
                 }
           }          
+          
+          
 
     }}
