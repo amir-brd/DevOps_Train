@@ -1,11 +1,11 @@
 pipeline {
     agent any
-    /*
+  
     environment {
             registry = "amirbrd/devops-project"
             registryCredential = 'dockerHub'
             dockerImage = ''
-     }*/
+     }
 
     stages {
 
@@ -51,47 +51,15 @@ pipeline {
         
         
         
-        stage('Building our image') {
-  steps {
-               
-sh 'docker build -t amirbrd/devops-project .'
-               
-            }
-        }
-	    
-	stage('docker login') {
-            steps {
-                script {
-                   
-                        sh 'docker login --username amirbrd --password haut13STYLE13++' 
-                    }
-                    
-                }
-                
-            
-            
-        } 
-stage('Push Dockerhub') {
-            steps {
-                script {
-                   
-                        sh "docker push amirbrd/devops-project "
-                    }
-                    
-	    }   
-        }
         
-        
-        
-        
-        /*
+       
         stage('Build our image') {
             steps {
                 script {
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
-        }*/
+        }
 
          /*-- stage('Deploy our image') {
                steps {
