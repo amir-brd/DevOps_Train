@@ -16,17 +16,13 @@ pipeline {
                 url : 'https://github.com/amir-brd/DevOps_Train.git'
             }
         }
-        
-         stage('MVN CLEAN'){
+
+      
+
+        stage('MVN CLEAN'){
             steps{
-                sh  'mvn clean -e'
+                sh  'mvn clean'
             }
-        }
-        
-        stage('MVN INSTALL'){
-              steps{
-                  sh  'mvn install'
-              }
         }
 
         stage('MVN COMPILE'){
@@ -35,24 +31,27 @@ pipeline {
             }
         }
 
-        
-        stage('Deploy Nexus'){
-            steps{
-                sh  'mvn  deploy'
-            }
+        stage('MVN PACKAGE'){
+              steps{
+                  sh  'mvn package'
+              }
         }
-        
-        stage('MVN SONARQUBE'){
+              stage("nexus deploy"){
+               steps{
+                       sh 'mvn  deploy'
+               }
+          }
+
+          stage('MVN SONARQUBE'){
 
                 steps{
                           sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
                 }
           }
-        
          stage('Building our image') {
                steps{
                         script {
-                            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                            dockerImage = docker.build registry + ":latest"
                         }
                }
         }
@@ -65,23 +64,47 @@ pipeline {
                             }
                         }
                }
-        
-        
-        stage('docker compose') {
-               steps {
-                       
-                            
-                    script {
-                            sh 'docker-compose up -d --build'
-                      
-                        }
-               }
-            }
-        
+         }
 
+          stage('DOCKER COMPOSE') {
+                steps {
+                            sh 'docker-compose up -d --build'
+                }
+          }
         
-        
-        
-}
-}
+    
+          stage("Test JUnit /Mockito"){
+                steps {
+                            sh 'mvn test'
+                }
+          }
+
+
+       
+
+    }
+
+    post{
+
+            success {
+                mail to: "bellilifatma49@gmail.com",
+                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n, More info at: ${env.BUILD_URL}",
+                from: "bellilifatma49@gmail.com",
+                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+            }
+
+            failure{
+                mail to: "bellilifatma49@gmail.com",
+                subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                from: "bellilifatma49@gmail.com",
+                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+            }
+
+            changed{
+                mail to: "bellilifatma49@gmail.com",
+                subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                from: "bellilifatma49@gmail.com",
+                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+            }
+        }
 }
