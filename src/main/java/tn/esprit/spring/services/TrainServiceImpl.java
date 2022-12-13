@@ -90,7 +90,7 @@ public class TrainServiceImpl implements ITrainService {
 
 
         System.out.println("taille test");
-        Voyageur c = voyageurRepository.findById(idVoyageur).get();
+        Voyageur c = voyageurRepository.findById(idVoyageur).orElse(null);
         List<Voyage> lesvoyages ;
         lesvoyages = voyageRepository.rechercheVoyage(nomGareDepart, nomGareDepart, heureDepart);
         System.out.println("taille" + lesvoyages.size());
@@ -99,7 +99,7 @@ public class TrainServiceImpl implements ITrainService {
                 lesvoyages.get(i).getMesVoyageurs().add(c);
                 lesvoyages.get(i).getTrain().setNbPlaceLibre(lesvoyages.get(i).getTrain().getNbPlaceLibre() - 1);
             } else
-                System.out.print("Pas de place disponible pour " + voyageurRepository.findById(idVoyageur).get().getNomVoyageur());
+                System.out.print("Pas de place disponible pour " + voyageurRepository.findById(idVoyageur).orElse(null).getNomVoyageur());
             voyageRepository.save(lesvoyages.get(i));
         }
     }
