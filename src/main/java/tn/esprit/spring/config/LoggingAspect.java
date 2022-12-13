@@ -19,10 +19,14 @@ private static final Logger log = LogManager.getLogger(LoggingAspect.class);
 @Before("execution(* tn.esprit.spring.service.*.set*(..))")
 public void logMethodEntry(JoinPoint joinPoint) {
 String name = joinPoint.getSignature().getName();
-log.info("In method " + name + " : ");
+	if(log.isInfoEnabled() && name != null){
+		log.info(String.format("In method %s :",name));
+	}
 }
 @After("execution(* tn.esprit.spring.service.*.set*(..))")
 public void logMethodExit(JoinPoint joinPoint) {
 	String name = joinPoint.getSignature().getName();
-	logger.info("Out of " + name );
+	if(logger.isInfoEnabled() && name != null){
+		logger.info(String.format("Out of %s" , name));
+	}
 }}

@@ -25,9 +25,6 @@ public class VoyageurServiceImpl implements IVoyageurService{
 	@Autowired
 	VoyageurRepository voyageurRepository;
 
-//	
-//	private static final Logger l = LogManager.getLogger(voyageurServiceImpl.class);
-//	
 	public Voyageur ajouterVoyageur(Voyageur v) {
 		log.info("In method ajouterVoyageur");
 		voyageurRepository.save(v);
@@ -53,7 +50,6 @@ public class VoyageurServiceImpl implements IVoyageurService{
 
 	@Override
 	public Voyageur recupererVoyageParId(long idVoyageur) {
-		//TODO
 		return null;
 	}
 
