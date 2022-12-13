@@ -114,7 +114,7 @@ public class TrainServiceImpl implements ITrainService {
             for (int j = 0; j < lesvoyages.get(i).getMesVoyageurs().size(); j++)
                 lesvoyages.get(i).getMesVoyageurs().remove(j);
             lesvoyages.get(i).getTrain().setNbPlaceLibre(lesvoyages.get(i).getTrain().getNbPlaceLibre() + 1);
-            lesvoyages.get(i).getTrain().setEtat(etatTrain.prevu);
+            lesvoyages.get(i).getTrain().setEtat(etatTrain.PREVU);
             voyageRepository.save(lesvoyages.get(i));
             trainRepository.save(lesvoyages.get(i).getTrain());
         }
